@@ -11,7 +11,7 @@ def _gamma(k, dtype):
 
 
 def _sum_sq(x):
-    e, s = _gamma(x.numel() + 1, torch.float64), float((v := x.reshape(-1).double()) @ v)
+    e, s = _gamma(x.numel() + 1, torch.float64), fsum(float((c := w.double()) @ c) for w in x.reshape(-1).split(2**26))
     return (0.0, inf) if e >= 1.0 or not isfinite(s) else (max(0.0, na(s / (1.0 + e), 0.0)), na(s / (1.0 - e), inf))
 
 
